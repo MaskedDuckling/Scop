@@ -7,6 +7,7 @@ CFLAGS =  -std=c++11
 OPENGL = -lglut -lGLU -lGL -lglfw  
 
 SRCS =	main.cpp	\
+		parsing.cpp	\
 		glad.c
 	
 SOURCES = $(addprefix sources/, $(SRCS)) \
