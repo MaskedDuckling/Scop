@@ -17,18 +17,18 @@ const char *fragmentShaderSource = "#version 330 core\n"
     "   FragColor = vec4( .5f , 0.2f, 1.0f);\n"
     "}\n\0";
 
-float verticess[] = {
-     0.5f,  0.5f, 0.0f,  // top right
-     0.5f, -0.5f, 0.0f,  // bottom right
-    -0.5f, -0.5f, 0.0f,  // bottom left
-    -0.5f,  0.5f, 0.0f,   // top left 
-    0.0f, 1.0f, 0.0f
-};
-unsigned int indicess[] = {  // note that we start from 0!
-    0, 1, 3,   // first triangle
-    1, 2, 3,    // second triangle
-    0, 4, 3    
-};
+// float verticess[] = {
+//      0.5f,  0.5f, 0.0f,  // top right
+//      0.5f, -0.5f, 0.0f,  // bottom right
+//     -0.5f, -0.5f, 0.0f,  // bottom left
+//     -0.5f,  0.5f, 0.0f,   // top left 
+//     0.0f, 1.0f, 0.0f
+// };
+// unsigned int indicess[] = {  // note that we start from 0!
+//     0, 1, 3,   // first triangle
+//     1, 2, 3,    // second triangle
+//     0, 4, 3    
+// };
 
 void processInput(GLFWwindow *window)
 {
@@ -43,9 +43,33 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
  
 int main(int ac, char **av)
 {
-    ////////////////////////////////////////////////<Init>////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////<Parsing>////////////////////////////////////////////////
+
+    std::vector<float> vertices;
+    std::vector<unsigned int> indices;
+
     if (ac == 2)
-        parse_file_obj(av[1]);
+        parse_file_obj(av[1], vertices, indices);
+
+    float * verticess  = &vertices[0];
+    unsigned int * indicess = &indices[0];
+
+    for(int i=0;i<vertices.size();)
+    {
+        std::cout<<verticess[i++]<<" ";
+        if (i%3 == 0)
+            std::cout<<std::endl;
+    }
+    std::cout<<std::endl;
+    for(int i=0;i<indices.size();)
+    {
+        std::cout<<indicess[i++]<<" ";
+        if (i%3 == 0)
+            std::cout<<std::endl;
+    }    
+    ////////////////////////////////////////////////<Init>////////////////////////////////////////////////
+
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -67,6 +91,8 @@ int main(int ac, char **av)
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+
+    ////////////////////////////////////////////////<Shaders>////////////////////////////////////////////////
 
     unsigned int vertexShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -122,7 +148,9 @@ int main(int ac, char **av)
         glfwSwapBuffers(window);
         glfwPollEvents(); 
     }
+
     ////////////////////////////////////////////////<End>////////////////////////////////////////////////
+
     glfwTerminate();
     return 0;
 }

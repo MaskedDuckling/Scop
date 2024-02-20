@@ -4,7 +4,7 @@
 NAME = scop
 CC = g++ 
 CFLAGS =  -std=c++11
-OPENGL = -lglut -lGLU -lGL -lglfw  
+OPENGL = -lglut -lGLU -lGL -lglfw
 
 SRCS =	main.cpp	\
 		parsing.cpp	\
