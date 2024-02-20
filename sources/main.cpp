@@ -1,7 +1,7 @@
 #include "../includes/glad/glad.h"
 #include <GLFW/glfw3.h>
 
-#include "../includes/scop.hpp"
+#include "../headers/scop.hpp"
 
 const char *vertexShaderSource = "#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
@@ -52,22 +52,21 @@ int main(int ac, char **av)
     if (ac == 2)
         parse_file_obj(av[1], vertices, indices);
 
-    float * verticess  = &vertices[0];
-    unsigned int * indicess = &indices[0];
+    // float * verticess  = &vertices[0];
+    // unsigned int * indicess = &indices[0];
 
-    for(int i=0;i<vertices.size();)
-    {
-        std::cout<<verticess[i++]<<" ";
-        if (i%3 == 0)
-            std::cout<<std::endl;
-    }
-    std::cout<<std::endl;
-    for(int i=0;i<indices.size();)
-    {
-        std::cout<<indicess[i++]<<" ";
-        if (i%3 == 0)
-            std::cout<<std::endl;
-    }    
+    float verticess[vertices.size()];
+    unsigned int indicess[indices.size()];
+
+    std::copy(vertices.begin(), vertices.end(), verticess);
+    std::copy(indices.begin(), indices.end(), indicess);
+
+    // for(int i=0;i<vertices.size();)
+    //     std::cout<<verticess[i++]<<" ";
+    // std::cout<<std::endl;
+    // for(int i=0;i<indices.size();)
+    //     std::cout<<indicess[i++]<<" ";
+    
     ////////////////////////////////////////////////<Init>////////////////////////////////////////////////
 
     glfwInit();

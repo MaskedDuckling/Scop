@@ -1,4 +1,4 @@
-#include "../includes/scop.hpp"
+#include "../headers/scop.hpp"
 
 
 void parse_file_obj(char *obj_file, std::vector<float> &vertices, std::vector<unsigned int> &indices){
